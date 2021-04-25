@@ -1,0 +1,134 @@
+﻿1. Install Geth
+2. Install Mist Wallet
+
+3. Add paths to Environment variable PATH
+
+4. Create Blockchain Folder e.g C:\MyChain
+5. Cd into the new folder
+6. Paste genesis block json file into created directory
+7. Initialize blockchain
+	geth init genesis.json, geth init CustomGenesis.json
+8. Confirm that Ethereum Folder is created  "C:\Users\hp\AppData\Roaming\Ethereum"
+9. Start the Blockchain
+	geth --networkid=5 console
+	1. Here in the above command, “networkid=1” stands for the main Ethereum network. So any random number apart 
+	from 1 can be given as the network id. Also, “console” is appended to the command in order to enable us to 
+	write commands while the network is started.
+	2. In order to start the private network as RPC network at some custom port, use the following command:
+	“geth --networkid=5 -rpc -rpcport <port> console --gcmode archive”
+	--gcmode archive => do not clear mined ether
+10. Create addresses using MIST wallet or geth command line
+11. After creating the address, go back to the command prompt where the network is running and run the following command:
+	“miner.start(1)”
+	This will start the mining and the mined ether can be seen in the Mist (Ethereum) Wallet.
+	Also, if mining is not required, then the private network is supposed to be started for deploying a smart contract through Mist wallet.
+	8. In case you need to stop mining, run the following command;
+	“miner.stop()”
+	Following the above steps will help in setting up the Private Ethereum Blockchain on a Windows machine.
+	We can deploy Smart contracts in the Private network and perform QA before deploying the same in the public blockchain network.
+	
+STUFF
+Create ethereum blockchain 
+geth --datadir blkchain1 init genesis.json
+Start Blockchain
+geth --datadir blkchain1 --nodiscover --networkid 1234 console --gcmode archive
+Explained
+Let’s break down this “geth console” command and understand it:
+--datadir blkchain1:
+specifies the data directory of the blockchain. If you do not specify this, it will default to the main Ethereum blockchain.
+--nodiscover:
+disables the peer discovery mechanism and enables manual peer addition.
+--networkid 1234:
+identity of your Ethereum network, other peer nodes will also have the same network identifier. The network id can be any random integer value.
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////
+
+1. Install Geth
+2. Install Mist Wallet
+
+3. Add paths to Environment variable PATH
+
+4. Create Blockchain Folder e.g C:\MyChain
+5. Cd into the new folder
+6. Paste genesis block json file into created directory
+=====================================================================================================
+geth --rpc --rpcport 8585 --rpccorsdomain "*" console --gcmode archive
+
+geth --rpc --rpcport 8585 --rpccorsdomain "*" --gcmode archive
+
+geth --rpc --rpccorsdomain "http://localhost:8000" --rpcaddr="localhost" console --gcmode archive
+=====================================================================================================
+SAMPLE GENESIS.JSON
+{
+"config": {
+"chainId": 4321,
+"homesteadBlock": 0,
+"eip155Block": 0,
+"eip158Block": 0
+},
+"alloc": {},
+"difficulty" : "0x20000",
+"gasLimit"   : "0x8880000"
+}
+SAMPLE GENESIS.JSON
+{
+"config":{
+ "chainId": 45,
+ "homesteadBlock": 0,
+ "eip155Block": 0,
+ "eip158Block": 0,
+ "byzantiumBlock": 12
+ },
+ "alloc": {
+			"0000000000000000000000000000000000000001": { "balance": "1" },
+			"0000000000000000000000000000000000000002": { "balance": "1" },
+			"0000000000000000000000000000000000000003": { "balance": "1" },
+			"0000000000000000000000000000000000000004": { "balance": "1" },
+			"102e61f5d8f9bc71d0ad4a084df4e65e05ce0e1c": { "balance": "1606938044258990275541962092341162602522202993782792835301376" }
+		},
+ "coinbase" : "0x0000000000000000000000000000000000000000",
+ "difficulty" : "0x20000",
+ "extraData" : "",
+ "gasLimit" : "0x2fefd8",
+ "nonce" : "0x0000000000000042",
+ "mixhash" : "0x0000000000000000000000000000000000000000000000000000000000000000",
+ "parentHash" : "0x0000000000000000000000000000000000000000000000000000000000000000",
+ "timestamp" : "0x00"
+}
+
+MAIN NODE
+geth --datadir blkchain1 init genesis.json
+geth --datadir blkchain1 --nodiscover --networkid 1234 console //default port is 30303
+
+NODE 2
+geth --datadir blkchain2 init genesis.json
+geth --datadir blkchain2 --nodiscover --networkid 1234 --port 30304 console
+
+1. IN NODE 2 RUN admin.nodeInfo
+
+2. admin.peers on both nodes to check
+
+3. Copy enode id from NODE 1
+e.g
+"enode://549468e6d00e135128af33e03a6d27b0ee5fda7fbd0154b2e83fe68afdfda869eb6ace6ccaefe84ed7a5b804529dcef49f0b5d64be97da87b1e28ddecfca227a@[::]:30303?discport=0"
+
+4. In NODE 2 add NODE 1 as PAIR
+admin.addPeer("enode://549468e6d00e135128af33e03a6d27b0ee5fda7fbd0154b2e83fe68afdfda869eb6ace6ccaefe84ed7a5b804529dcef49f0b5d64be97da87b1e28ddecfca227a@[::]:30303?discport=0")
+
+5. run on NODE 1 miner.start(1)
+6. confirm that both nodes are synchronizing by checking the same block on both intances
+e.g 
+eth.blockNumber
+eth.getBlock(3)
+
+
+
