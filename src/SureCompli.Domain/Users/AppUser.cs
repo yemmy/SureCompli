@@ -1,6 +1,8 @@
 ﻿using SureCompli.SureCompli;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Users;
 
@@ -39,8 +41,14 @@ namespace SureCompli.Users
         public virtual string PhoneNumber { get; private set; }
 
         public virtual bool PhoneNumberConfirmed { get; private set; }
+
+        [NotMapped]
+        public override ExtraPropertyDictionary ExtraProperties { get; protected set; }
         public virtual ICollection<Regulation> Regulations { get; set; }
         public virtual ICollection<Engagement> Engagements { get; set; }
+
+        //public virtual ICollection<Engagement> Customers { get; set; }
+        //public virtual ICollection<Engagement> Businesses { get; set; }
 
         #endregion
 

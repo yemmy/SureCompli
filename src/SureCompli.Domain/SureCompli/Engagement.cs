@@ -15,17 +15,17 @@ namespace SureCompli.SureCompli
         public virtual Guid RegulationId { get; set; }
         public virtual Regulation Regulation { get; set; }
 
-        [ForeignKey("Business")]
+        //[ForeignKey("Business")]
         public virtual Guid BusinessId { get; set; }
-        public virtual AppUser Business { get; set; }
+        //public virtual AppUser Business { get; set; }
 
-        [ForeignKey("Customer")]
+        //[ForeignKey("Customer")]
         public virtual Guid CustomerId { get; set; }
-        public virtual AppUser Customer { get; set; }
+        //public virtual AppUser Customer { get; set; }
 
-        [ForeignKey("Broker")]
+        //[ForeignKey("Broker")]
         public virtual Guid? BrokerId { get; set; }
-        public virtual AppUser Broker { get; set; }
+        //public virtual AppUser Broker { get; set; }
 
         public virtual ICollection<EngagementQA> EngagementQA { get; set; }
         public virtual ICollection<EngagementCharge> EngagementCharges { get; set; }

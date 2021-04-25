@@ -60,6 +60,10 @@ namespace SureCompli.EntityFrameworkCore
                 
                 b.ConfigureByConvention();
                 b.ConfigureAbpUser();
+                b.ConfigureFullAuditedAggregateRoot();
+               // b.HasOne<IdentityUser>().WithOne().HasForeignKey<AppUser>(e => e.Id);
+
+                
 
                 /* Configure mappings for your additional properties
                  * Also see the SureCompliEfCoreEntityExtensionMappings class
